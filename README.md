@@ -23,7 +23,6 @@ Meteor Up (mup for short) is a command line tool that allows you to deploy any [
 - [Accessing the Database](#accessing-the-database)
 - [Multiple Deployments](#multiple-deployments)
 - [Server Specific Environment Variables](#server-specific-environment-variables)
-- [Forever Settings](#forever-settings)
 - [SSL Support](#ssl-support)
 - [Updating](#updating)
 - [Troubleshooting](#troubleshooting)
@@ -251,33 +250,6 @@ We need to have two separate Meteor Up projects. For that, create two directorie
 In the staging `mup.json`, add a field called `appName` with the value `staging`. You can add any name you prefer instead of `staging`. Since we are running our staging app on port 8000, add an environment variable called `PORT` with the value 8000.
 
 Now setup both projects and deploy as you need.
-
-### Forever settings
-
-Meteor up uses forever to run the meteor app. Forever will restart the app if an unhandled error occurs. Forever refers to a crashed scrip that is restarted as it is "spinning". There are two configurable values for Forever. 
-minUpTime - the minimum time in milliseconds the app must have been running before a crash for Forever to restart the app. Defaults to 2000
-
-spinSleepTime - the time in milliseconds Forever will wait before restarting the app. Defaults to 1000
-
-minUpTime is important since we dont want a newly deployed app to go into an infinit error loop. Normally the 2000 millisecond default value is enough. But for some apps we want Forever to wait longer than that before considering the app OK and therefore restartable. 
-
-In the event your app require other settings for Forever than the defaults provided by Meteor UP. Add the following configuration to your `mup.json` file. You only need to add the value you want to override. Change the milliseconds to meet your app's requirements. 
-
-~~~js
-{
-  ...
-
-  "forever": {
-    "minUpTime": 2000,
-    "spinSleepTime": 1000,
-  }
-
-  ...
-}
-~~~
-
-Read the section [Reconfiguring & Restarting](#reconfiguring--restarting) for information on how to enable your updated configuration. 
-
 
 ### SSL Support
 
